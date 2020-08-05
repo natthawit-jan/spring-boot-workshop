@@ -1,13 +1,9 @@
 package com.natthawitjan.demo.controller;
 
-import com.natthawitjan.demo.pojo.User;
+import com.natthawitjan.demo.pojo.UserBody;
 import com.natthawitjan.demo.pojo.UserResponseWithPage;
 import com.natthawitjan.demo.pojo.UsersResponse;
-import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +20,13 @@ public class UserController {
         List<UsersResponse> usersResponses = new ArrayList<>();
         for (int i = 0; i < numberOfItems; i++)
             usersResponses.add(new UsersResponse(i + 1, String.format("User %d", i + 1)));
-        return new UserResponseWithPage(pageNumber, usersResponses);
+        return new UserResponseWithPage(pageNumber, numberOfItems, usersResponses);
+
+    }
+
+    @PostMapping("user")
+    public UsersResponse addUserInfo(@RequestBody UserBody userBody) {
+        return new UsersResponse(1, userBody.getName());
 
     }
 

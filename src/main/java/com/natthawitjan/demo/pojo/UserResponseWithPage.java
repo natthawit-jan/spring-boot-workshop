@@ -1,11 +1,24 @@
 package com.natthawitjan.demo.pojo;
 
-import java.util.List;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
+import java.util.List;
+@JsonPropertyOrder({"page", "items_count", "users"})
 public class UserResponseWithPage {
 
     private int page;
+    @JsonProperty("items_count")
+    private int itemsCounts;
+    @JsonProperty("users")
     private List<UsersResponse> usersResponse;
+
+    public UserResponseWithPage(int page, int itemsCounts, List<UsersResponse> usersResponse) {
+        this.page = page;
+        this.itemsCounts = itemsCounts;
+        this.usersResponse = usersResponse;
+    }
+
 
 
     public List<UsersResponse> getUsersResponse() {
@@ -30,14 +43,17 @@ public class UserResponseWithPage {
         return page;
     }
 
-    public UserResponseWithPage(int page, List<UsersResponse> usersResponse) {
-        this.page = page;
-        this.usersResponse = usersResponse;
-    }
 
     public void setPage(int page) {
         this.page = page;
     }
 
+    public int getItemsCounts() {
+        return itemsCounts;
+    }
+
+    public void setItemsCounts(int itemsCounts) {
+        this.itemsCounts = itemsCounts;
+    }
 }
 
