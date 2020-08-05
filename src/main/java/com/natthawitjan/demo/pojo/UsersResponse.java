@@ -1,27 +1,11 @@
 package com.natthawitjan.demo.pojo;
 
+import lombok.Data;
+import lombok.NonNull;
+
+@Data
 public class UsersResponse {
-    public int getId() {
-        return id;
-    }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public UsersResponse(int id, String name) {
-        this.id = id;
-        this.name = name;
-    }
-
-    private int id;
-    private String name;
+   @NonNull private final int id;
+    @NonNull private final String name;
 }

@@ -3,6 +3,8 @@ package com.natthawitjan.demo.controller;
 import com.natthawitjan.demo.pojo.UserBody;
 import com.natthawitjan.demo.pojo.UserResponseWithPage;
 import com.natthawitjan.demo.pojo.UsersResponse;
+import com.natthawitjan.demo.repository.User;
+import com.natthawitjan.demo.repository.UserRepository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -10,6 +12,12 @@ import java.util.List;
 
 @RestController
 public class UserController {
+
+    private final UserRepository userRepository;
+
+    public UserController(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     @GetMapping("users")
     public UserResponseWithPage getAllUsers(
@@ -26,7 +34,9 @@ public class UserController {
 
     @PostMapping("user")
     public UsersResponse addUserInfo(@RequestBody UserBody userBody) {
-        return new UsersResponse(1, userBody.getName());
+        User user = new User(userBody.getName(), userBody.getAge());
+        User user_saved = userRepository.save(user);
+        return new UsersResponse(user_saved.getId(), user_saved.getName());
 
     }
 
